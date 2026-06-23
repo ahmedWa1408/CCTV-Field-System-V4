@@ -1,1 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>السجلات السابقة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/history.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="headerCard">
+
+<div class="logoArea">
+
+<img src="assets/logo.png" class="logo" alt="تحكم">
+
+<div class="titleArea">
+
+<h1>السجلات السابقة</h1>
+
+<h2>قسم التشغيل CCTV</h2>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="searchCard">
+
+<div class="searchGrid">
+
+<div class="field">
+
+<label>🔍 البحث</label>
+
+<input
+type="text"
+id="searchInput"
+placeholder="ابحث برقم الخطة أو المشغل أو المسار">
+
+</div>
+
+<div class="field">
+
+<label>📅 من تاريخ</label>
+
+<input
+type="date"
+id="fromDate">
+
+</div>
+
+<div class="field">
+
+<label>📅 إلى تاريخ</label>
+
+<input
+type="date"
+id="toDate">
+
+</div>
+
+<button id="searchBtn">
+
+بحث
+
+</button>
+
+</div>
+
+</section>
+
+<section class="historyTableCard">
+
+<div class="tableResponsive">
+
+<table class="historyTable">
+
+<thead>
+
+<tr>
+
+<th>رقم الخطة</th>
+
+<th>المسار</th>
+
+<th>المشغل</th>
+
+<th>ID</th>
+
+<th>المشرف</th>
+
+<th>التاريخ</th>
+
+<th>نسبة الإنجاز</th>
+
+<th>عرض</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</section><section class="actionCard">
+
+<button id="openMission">
+
+👁 فتح المهمة
+
+</button>
+
+<button id="printMission">
+
+🖨 طباعة
+
+</button>
+
+<button id="pdfMission">
+
+📄 تصدير PDF
+
+</button>
+
+<button id="copyMission">
+
+📋 نسخ
+
+</button>
+
+<button id="deleteMission">
+
+🗑 حذف
+
+</button>
+
+</section>
+
+<section class="detailsCard">
+
+<h2>
+
+تفاصيل المهمة
+
+</h2>
+
+<div id="missionDetails">
+
+<p>
+
+اختر مهمة من الجدول لعرض تفاصيلها.
+
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+<script src="js/history.js"></script>
+
+</body>
+
+</html>
 
