@@ -1,93 +1,111 @@
-const planInput=document.getElementById("planNumber");
+const welcomeScreen=document.getElementById("welcomeScreen");
 
-const planCard=document.getElementById("planInfo");
+const homePage=document.getElementById("homePage");
 
-const routeNumber=document.getElementById("routeNumber");
+const planNumber=document.getElementById("planNumber");
 
 const routeName=document.getElementById("routeName");
 
-const sitesCount=document.getElementById("sitesCount");
+setTimeout(function(){
 
-const storageCount=document.getElementById("storageCount");
+welcomeScreen.style.display="none";
 
-const lastMission=document.getElementById("lastMission");
+homePage.style.display="block";
 
-function searchPlan(){
+},2500);
 
-const number=planInput.value.trim();
+function updateClock(){
 
-if(number===""){
+const now=new Date();
 
-alert("أدخل رقم الخطة");
+document.getElementById("liveTime").textContent=
+
+now.toLocaleTimeString("ar-SA");
+
+document.getElementById("todayDate").textContent=
+
+now.toLocaleDateString("ar-SA");
+
+document.getElementById("todayName").textContent=
+
+now.toLocaleDateString("ar-SA",{
+
+weekday:"long"
+
+});
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);planNumber.addEventListener("input",function(){
+
+const value=this.value.trim();
+
+if(plans[value]){
+
+routeName.value=plans[value].name;
+
+}else{
+
+routeName.value="";
+
+}
+
+});
+
+document.getElementById("searchPlan").addEventListener("click",function(){
+
+const value=planNumber.value.trim();
+
+if(!plans[value]){
+
+alert("رقم الخطة غير موجود.");
 
 return;
 
 }
 
-if(!plans[number]){
+routeName.value=plans[value].name;
 
-alert("رقم الخطة غير موجود");
+});
 
-planCard.style.display="none";
+document.getElementById("startMission").addEventListener("click",function(){
 
-return;
+const value=planNumber.value.trim();
 
-}
+if(!plans[value]){
 
-routeNumber.textContent="الخطة رقم "+number;
-
-routeName.textContent=plans[number].name;
-
-sitesCount.textContent=plans[number].sites.length;
-
-storageCount.textContent=(plans[number].flash||0)+(plans[number].hard||0);
-
-lastMission.textContent=localStorage.getItem("lastMission_"+number)||"لا يوجد";
-
-planCard.style.display="block";
-
-}function startMission(){
-
-const number=planInput.value.trim();
-
-if(!plans[number]){
-
-alert("اختر رقم خطة صحيح");
+alert("اختر رقم خطة صحيح.");
 
 return;
 
 }
 
-localStorage.setItem("selectedPlan",number);
+localStorage.setItem("selectedPlan",value);
 
 window.location.href="mission.html";
 
-}
-
-function openHistory(){
-
-const number=planInput.value.trim();
-
-if(!plans[number]){
-
-alert("اختر رقم خطة أولاً");
-
-return;
-
-}
-
-localStorage.setItem("selectedPlan",number);
+});document.getElementById("historyPage").addEventListener("click",function(){
 
 window.location.href="history.html";
 
-}
+});
 
-function resetSearch(){
+document.getElementById("reportsPage").addEventListener("click",function(){
 
-planInput.value="";
+window.location.href="reports.html";
 
-planCard.style.display="none";
+});
 
-planInput.focus();
+document.getElementById("adminPage").addEventListener("click",function(){
 
-}
+window.location.href="admin.html";
+
+});
+
+window.addEventListener("load",function(){
+
+planNumber.focus();
+
+});
