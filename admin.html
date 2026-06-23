@@ -1,1 +1,279 @@
+<!DOCTYPE html>
 
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>لوحة الإدارة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="headerCard">
+
+<div class="logoArea">
+
+<img src="assets/logo.png" class="logo" alt="تحكم">
+
+<div class="titleArea">
+
+<h1>لوحة إدارة النظام</h1>
+
+<h2>إدارة أنظمة المراقبة الأمنية - قسم التشغيل CCTV</h2>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="menuCard">
+
+<div class="menuGrid">
+
+<button id="employeesBtn">
+
+👤 الموظفون
+
+</button>
+
+<button id="supervisorsBtn">
+
+👮 المشرفون
+
+</button>
+
+<button id="vehiclesBtn">
+
+🚗 السيارات
+
+</button>
+
+<button id="laptopsBtn">
+
+💻 اللابتوبات
+
+</button>
+
+<button id="plansBtn">
+
+🛣 الخطط
+
+</button>
+
+<button id="sitesBtn">
+
+📍 المواقع
+
+</button>
+
+<button id="historyBtn">
+
+📚 السجلات
+
+</button>
+
+<button id="backupBtn">
+
+💾 النسخ الاحتياطي
+
+</button>
+
+<button id="restoreBtn">
+
+♻️ استعادة النسخة
+
+</button>
+
+</div>
+
+</section>
+
+<section class="contentCard">
+
+<div id="adminContent">
+
+اختر القسم المطلوب من الأعلى.
+
+</div>
+
+</section>
+
+<script src="data/config.js"></script>
+
+<script src="js/admin.js"></script>
+
+</body>
+
+</html><section class="statsCard">
+
+<div class="statsGrid">
+
+<div class="statBox">
+
+<h3 id="employeesCount">
+
+0
+
+</h3>
+
+<span>
+
+عدد الموظفين
+
+</span>
+
+</div>
+
+<div class="statBox">
+
+<h3 id="supervisorsCount">
+
+0
+
+</h3>
+
+<span>
+
+عدد المشرفين
+
+</span>
+
+</div>
+
+<div class="statBox">
+
+<h3 id="vehiclesCount">
+
+0
+
+</h3>
+
+<span>
+
+عدد السيارات
+
+</span>
+
+</div>
+
+<div class="statBox">
+
+<h3 id="plansCount">
+
+0
+
+</h3>
+
+<span>
+
+عدد الخطط
+
+</span>
+
+</div>
+
+<div class="statBox">
+
+<h3 id="sitesCount">
+
+0
+
+</h3>
+
+<span>
+
+عدد المواقع
+
+</span>
+
+</div>
+
+<div class="statBox">
+
+<h3 id="missionsCount">
+
+0
+
+</h3>
+
+<span>
+
+المهام المنفذة
+
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="quickActions">
+
+<button id="addEmployee">
+
+➕ إضافة موظف
+
+</button>
+
+<button id="addVehicle">
+
+🚗 إضافة سيارة
+
+</button>
+
+<button id="addSupervisor">
+
+👮 إضافة مشرف
+
+</button>
+
+<button id="addPlan">
+
+🛣 إضافة خطة
+
+</button>
+
+<button id="addSite">
+
+📍 إضافة موقع
+
+</button>
+
+<button id="systemSettings">
+
+⚙️ إعدادات النظام
+
+</button>
+
+</section>
+
+</div>
+
+<script src="data/employees.js"></script>
+<script src="data/supervisors.js"></script>
+<script src="data/vehicles.js"></script>
+<script src="data/laptops.js"></script>
+<script src="data/plans.js"></script>
+<script src="data/config.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>
