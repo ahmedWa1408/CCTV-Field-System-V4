@@ -1,1 +1,675 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>المهمة الميدانية</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/mission.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="headerCard">
+
+<div class="logoArea">
+
+<img src="assets/logo.png" class="logo" alt="تحكم">
+
+<div class="titleArea">
+
+<h1>إدارة أنظمة المراقبة الأمنية</h1>
+
+<h2>قسم التشغيل CCTV</h2>
+
+</div>
+
+</div>
+
+<div class="topStatus">
+
+<div class="statusItem">
+
+<div id="liveTime">
+
+00:00:00
+
+</div>
+
+<span>
+
+🕒 الساعة
+
+</span>
+
+</div>
+
+<div class="statusItem">
+
+<div id="todayDate">
+
+-- / -- / ----
+
+</div>
+
+<span>
+
+📅 التاريخ
+
+</span>
+
+</div>
+
+<div class="statusItem">
+
+<div id="todayName">
+
+------
+
+</div>
+
+<span>
+
+📆 اليوم
+
+</span>
+
+</div>
+
+<div class="statusItem">
+
+<div id="networkStatus">
+
+4G
+
+</div>
+
+<span>
+
+📶 الشبكة
+
+</span>
+
+</div>
+
+<div class="statusItem">
+
+<div id="gpsStatus">
+
+متصل
+
+</div>
+
+<span>
+
+🛰 GPS
+
+</span>
+
+</div>
+
+<div class="statusItem">
+
+<div id="batteryLevel">
+
+100%
+
+</div>
+
+<span>
+
+🔋 البطارية
+
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+<section class="employeeCard">
+
+<div class="grid">
+
+<div class="field">
+
+<label>
+
+👤 المشغل
+
+</label>
+
+<input
+type="text"
+id="operatorName"
+placeholder="اسم المشغل">
+
+</div>
+
+<div class="field">
+
+<label>
+
+🪪 ID المشغل
+
+</label>
+
+<input
+type="text"
+id="operatorID"
+placeholder="رقم ID">
+
+</div>
+
+<div class="field">
+
+<label>
+
+👮 مشرف الفترة
+
+</label>
+
+<input
+type="text"
+id="supervisorName"
+placeholder="اسم المشرف">
+
+</div>
+
+<div class="field">
+
+<label>
+
+🪪 ID المشرف
+
+</label>
+
+<input
+type="text"
+id="supervisorID"
+placeholder="رقم ID">
+
+</div>
+
+<div class="field approveField">
+
+<label>
+
+اعتماد المشرف
+
+</label>
+
+<button id="approveSupervisor">
+
+✔ اعتماد
+
+</button>
+
+</div>
+
+</div>
+
+</section><section class="missionCard">
+
+<div class="missionGrid">
+
+<div class="field">
+
+<label>📋 رقم الخطة</label>
+
+<input
+type="text"
+id="planNumber"
+readonly>
+
+</div>
+
+<div class="field">
+
+<label>🛣 اسم المسار</label>
+
+<input
+type="text"
+id="routeName"
+readonly>
+
+</div>
+
+<div class="field vehicleField">
+
+<label>🚗 لوحة السيارة</label>
+
+<div class="plateBox">
+
+<input
+type="text"
+maxlength="1"
+class="plateLetter">
+
+<input
+type="text"
+maxlength="1"
+class="plateLetter">
+
+<input
+type="text"
+maxlength="1"
+class="plateLetter">
+
+<input
+type="text"
+maxlength="4"
+class="plateNumber"
+placeholder="1234">
+
+</div>
+
+</div>
+
+<div class="field">
+
+<label>💻 رقم اللابتوب</label>
+
+<input
+type="text"
+id="laptopNumber"
+placeholder="رقم اللابتوب">
+
+</div>
+
+<div class="infoCard">
+
+<span>🚗</span>
+
+<div>
+
+<h3 id="speedNow">
+
+0 كم/س
+
+</h3>
+
+<p>سرعة السيارة</p>
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<span>📏</span>
+
+<div>
+
+<h3 id="distanceNow">
+
+0 كم
+
+</h3>
+
+<p>المسافة المقطوعة</p>
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<span>⏱</span>
+
+<div>
+
+<h3 id="missionDuration">
+
+00:00:00
+
+</h3>
+
+<p>مدة المهمة</p>
+
+</div>
+
+</div>
+
+<div class="infoCard">
+
+<span>📍</span>
+
+<div>
+
+<h3 id="currentLocation">
+
+0 / 0
+
+</h3>
+
+<p>المواقع المنجزة</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="progressSection">
+
+<div class="progressHeader">
+
+<span>
+
+نسبة الإنجاز
+
+</span>
+
+<strong id="progressValue">
+
+0%
+
+</strong>
+
+</div>
+
+<div class="progressBar">
+
+<div id="progressFill"></div>
+
+</div>
+
+</section>
+
+<section class="tableSection"><div class="tableResponsive">
+
+<table class="missionTable">
+
+<thead>
+
+<tr>
+
+<th>م</th>
+
+<th>رمز الموقع</th>
+
+<th>📍 الموقع</th>
+
+<th>حالة الوصول</th>
+
+<th>حالة الموقع</th>
+
+<th>وحدة التخزين</th>
+
+<th>بداية المجلد</th>
+
+<th>نهاية المجلد</th>
+
+<th>ساعات الرصد</th>
+
+<th>XML</th>
+
+<th>📷 الصور</th>
+
+<th>📝 الملاحظات</th>
+
+<th>✔ اعتماد</th>
+
+</tr>
+
+</thead>
+
+<tbody id="sitesTable">
+
+<tr>
+
+<td>1</td>
+
+<td class="siteCode">
+
+QSMSM205
+
+</td>
+
+<td>
+
+<button class="mapBtn">
+
+📍 فتح الموقع
+
+</button>
+
+</td>
+
+<td>
+
+<span class="arrivalStatus">
+
+تم الوصول
+
+</span>
+
+</td>
+
+<td>
+
+<select class="statusSelect">
+
+<option value="working">
+
+🟢 يعمل
+
+</option>
+
+<option value="notworking">
+
+🟠 لا يعمل
+
+</option>
+
+<option value="workingClean">
+
+🟤 يعمل ولا توجد مخالفات
+
+</option>
+
+<option value="notworkingViolation">
+
+🟣 لا يعمل وتوجد مخالفات
+
+</option>
+
+<option value="notworkingClean">
+
+🔴 لا يعمل ولا توجد مخالفات
+
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="storageSelect">
+
+<option>
+
+فلاش
+
+</option>
+
+<option>
+
+2 فلاش
+
+</option>
+
+<option>
+
+3 فلاشات
+
+</option>
+
+<option>
+
+هارديسك
+
+</option>
+
+<option>
+
+يسحب يدوي
+
+</option>
+
+<option>
+
+أونلاين
+
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<input
+type="datetime-local"
+class="startFolder">
+
+</td>
+
+<td>
+
+<input
+type="datetime-local"
+class="endFolder"
+readonly>
+
+</td>
+
+<td>
+
+<input
+type="text"
+class="watchHours"
+placeholder="تحسب تلقائياً ويمكن تعديلها">
+
+</td><td>
+
+<select class="xmlSelect">
+
+<option value="yes">
+
+يوجد
+
+</option>
+
+<option value="no">
+
+لا يوجد
+
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<input
+type="file"
+class="imageUpload"
+accept="image/*"
+multiple>
+
+</td>
+
+<td>
+
+<textarea
+class="noteBox"
+placeholder="اكتب الملاحظات..."></textarea>
+
+</td>
+
+<td>
+
+<button
+class="approveSite">
+
+✔
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<section class="actionButtons">
+
+<button class="actionBtn mapBtnMain">
+
+📍 الخريطة المباشرة
+
+</button>
+
+<button class="actionBtn chatBtn">
+
+💬 الدردشة
+
+</button>
+
+<button class="actionBtn historyBtn">
+
+📚 سجل المسار
+
+</button>
+
+<button class="actionBtn reportBtn">
+
+📄 التقرير
+
+</button>
+
+<button class="actionBtn finishBtn">
+
+🏁 إنهاء المهمة
+
+</button>
+
+</section>
+
+</div>
+
+<script src="data/plans.js"></script>
+
+<script src="js/mission.js"></script>
+
+</body>
+
+</html>
 
