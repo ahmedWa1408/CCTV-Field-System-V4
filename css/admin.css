@@ -6,191 +6,629 @@ font-family:"Cairo",sans-serif;
 }
 
 body{
+
 background:#edf4fb;
+
 direction:rtl;
+
 color:#1f2d3d;
+
 }
 
 .container{
+
 max-width:1800px;
+
 margin:auto;
+
 padding:20px;
+
 }
 
 .headerCard,
+.dashboardCard,
 .menuCard,
 .statsCard,
 .quickActions,
-.contentCard{
+.contentCard,
+.logsCard{
+
 background:#ffffff;
+
 border-radius:24px;
+
 padding:20px;
+
 margin-bottom:20px;
+
 box-shadow:0 10px 30px rgba(0,0,0,.08);
+
 }
 
 .logoArea{
+
 display:flex;
+
 align-items:center;
+
 gap:18px;
+
 }
 
 .logo{
+
 width:80px;
+
 height:80px;
+
 object-fit:contain;
+
 }
 
 .titleArea h1{
-font-size:26px;
+
+font-size:28px;
+
 font-weight:900;
+
 color:#0057a8;
+
 }
 
 .titleArea h2{
+
 font-size:17px;
+
 font-weight:700;
-color:#6d7b90;
-margin-top:5px;
+
+color:#6b7c90;
+
+margin-top:4px;
+
 }
 
-.menuGrid{
+.dashboardGrid{
+
 display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:18px;
+
+}
+
+.dashboardBox{
+
+background:#f8fbff;
+
+border:2px solid #dbe8f6;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+}
+
+.dashboardBox h3{
+
+font-size:34px;
+
+font-weight:900;
+
+color:#0057a8;
+
+margin-bottom:8px;
+
+}
+
+.dashboardBox span{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#6b7c90;
+
+}.menuGrid{
+
+display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
 gap:15px;
+
 }
 
 .menuGrid button{
+
 height:60px;
+
 border:none;
+
 border-radius:18px;
+
 background:#0057a8;
+
 color:#ffffff;
+
 font-size:16px;
+
 font-weight:800;
+
 cursor:pointer;
+
 transition:.25s;
+
 }
 
 .menuGrid button:hover{
+
 background:#0077d4;
+
 }
 
 .menuGrid button:active{
+
 transform:scale(.98);
+
 }
 
 .statsGrid{
+
 display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
 gap:18px;
+
 }
 
 .statBox{
+
 background:#f8fbff;
-border:2px solid #dce8f6;
+
+border:2px solid #dbe8f6;
+
 border-radius:18px;
+
 padding:20px;
+
 text-align:center;
+
 }
 
 .statBox h3{
+
 font-size:34px;
+
 font-weight:900;
+
 color:#0057a8;
+
 margin-bottom:8px;
+
 }
 
 .statBox span{
+
 font-size:14px;
+
 font-weight:700;
+
 color:#6b7c90;
-}.quickActions{
+
+}
+
+.quickActions{
+
 display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
 gap:15px;
+
 }
 
 .quickActions button{
+
 height:60px;
+
 border:none;
+
 border-radius:18px;
-font-size:16px;
-font-weight:800;
-cursor:pointer;
+
 color:#ffffff;
+
+font-size:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
 transition:.25s;
-}
 
-#addEmployee{
-background:#18b66b;
-}
-
-#addVehicle{
-background:#0078d4;
-}
-
-#addSupervisor{
-background:#7b61ff;
-}
-
-#addPlan{
-background:#ff9800;
-}
-
-#addSite{
-background:#009688;
-}
-
-#systemSettings{
-background:#455a64;
 }
 
 .quickActions button:hover{
-filter:brightness(1.08);
+
+transform:translateY(-2px);
+
+box-shadow:0 8px 18px rgba(0,0,0,.15);
+
 }
 
-.quickActions button:active{
-transform:scale(.98);
+#addEmployee{
+
+background:#18b66b;
+
 }
 
-.contentCard{
-min-height:500px;
+#addSupervisor{
+
+background:#7b61ff;
+
+}
+
+#addVehicle{
+
+background:#0b84d8;
+
+}
+
+#addLaptop{
+
+background:#009688;
+
+}
+
+#addPlan{
+
+background:#ff9800;
+
+}
+
+#addSite{
+
+background:#795548;
+
+}
+
+#systemSettings{
+
+background:#455a64;
+
+}.contentCard{
+
+min-height:550px;
+
 }
 
 #adminContent{
+
 background:#f8fbff;
-border:2px solid #dce8f6;
+
+border:2px solid #dbe8f6;
+
 border-radius:18px;
+
 padding:20px;
-min-height:450px;
+
+min-height:500px;
+
+overflow:auto;
+
+}
+
+.adminTable{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:20px;
+
+background:#ffffff;
+
+}
+
+.adminTable thead th{
+
+background:#0057a8;
+
+color:#ffffff;
+
+padding:15px;
+
 font-size:15px;
+
+font-weight:800;
+
+text-align:center;
+
+}
+
+.adminTable tbody td{
+
+padding:14px;
+
+border-bottom:1px solid #e8eef7;
+
+text-align:center;
+
+font-size:14px;
+
 font-weight:700;
+
+}
+
+.adminTable tbody tr{
+
+transition:.25s;
+
+}
+
+.adminTable tbody tr:hover{
+
+background:#f5faff;
+
+}
+
+.toolbar{
+
+display:flex;
+
+gap:15px;
+
+margin-bottom:20px;
+
+flex-wrap:wrap;
+
+}
+
+.toolbar input{
+
+flex:1;
+
+min-width:260px;
+
+height:50px;
+
+border:2px solid #dbe8f6;
+
+border-radius:14px;
+
+padding:0 15px;
+
+font-size:15px;
+
+font-weight:700;
+
+outline:none;
+
+background:#ffffff;
+
+}
+
+.toolbar button{
+
+height:50px;
+
+padding:0 25px;
+
+border:none;
+
+border-radius:14px;
+
+background:#18b66b;
+
+color:#ffffff;
+
+font-size:15px;
+
+font-weight:800;
+
+cursor:pointer;
+
+}
+
+.formGrid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+gap:18px;
+
+margin-top:20px;
+
+}
+
+.formGrid label{
+
+font-size:14px;
+
+font-weight:800;
+
+color:#0057a8;
+
+}
+
+.formGrid input,
+
+.formGrid select{
+
+height:50px;
+
+border:2px solid #dbe8f6;
+
+border-radius:14px;
+
+padding:0 15px;
+
+font-size:15px;
+
+font-weight:700;
+
+background:#ffffff;
+
+outline:none;
+
+}
+
+.formGrid button{
+
+height:55px;
+
+border:none;
+
+border-radius:16px;
+
+background:#18b66b;
+
+color:#ffffff;
+
+font-size:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
+margin-top:10px;
+
+}.logsCard h2{
+
+font-size:22px;
+
+font-weight:900;
+
+color:#0057a8;
+
+margin-bottom:20px;
+
+}
+
+#systemLogs{
+
+background:#f8fbff;
+
+border:2px solid #dbe8f6;
+
+border-radius:18px;
+
+padding:20px;
+
+min-height:220px;
+
+max-height:450px;
+
+overflow-y:auto;
+
+font-size:14px;
+
+font-weight:700;
+
+line-height:2;
+
+}
+
+button{
+
+transition:.25s;
+
+}
+
+button:hover{
+
+filter:brightness(1.05);
+
+}
+
+button:active{
+
+transform:scale(.98);
+
+}
+
+input:focus,
+
+select:focus,
+
+textarea:focus{
+
+border-color:#0077d4;
+
+box-shadow:0 0 0 4px rgba(0,119,212,.12);
+
 }
 
 @media(max-width:768px){
 
 .container{
+
 padding:12px;
+
 }
 
 .logo{
+
 width:65px;
+
 height:65px;
+
 }
 
 .titleArea h1{
+
 font-size:20px;
+
 }
 
 .titleArea h2{
+
 font-size:14px;
+
 }
 
+.dashboardGrid,
+
 .menuGrid,
+
 .statsGrid,
-.quickActions{
+
+.quickActions,
+
+.formGrid{
+
 grid-template-columns:1fr;
+
+}
+
+.toolbar{
+
+flex-direction:column;
+
+}
+
+.toolbar input,
+
+.toolbar button{
+
+width:100%;
+
+}
+
+.adminTable{
+
+min-width:1100px;
+
+}
+
+.contentCard{
+
+overflow-x:auto;
+
 }
 
 }
