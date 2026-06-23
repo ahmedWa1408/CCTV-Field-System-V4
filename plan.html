@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>بدء المهمة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/plan.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="headerCard">
+
+<img src="assets/logo.png" class="logo">
+
+<h1>بدء المهمة الميدانية</h1>
+
+<p>إدارة أنظمة المراقبة الأمنية - قسم التشغيل CCTV</p>
+
+</div>
+
+<div class="formCard">
+
+<h2>بيانات المهمة</h2>
+
+<label>رقم الخطة</label>
+
+<input
+type="number"
+id="planNumber"
+placeholder="أدخل رقم الخطة">
+
+<label>اسم المسار</label>
+
+<input
+type="text"
+id="routeName"
+readonly>
+
+<label>عدد المواقع</label>
+
+<input
+type="text"
+id="sitesCount"
+readonly>
+
+<label>عدد الفلاشات</label>
+
+<input
+type="text"
+id="flashCount"
+readonly>
+
+<label>عدد الهارديسكات</label>
+
+<input
+type="text"
+id="hardCount"
+readonly><label>اسم المشغل</label>
+
+<input
+type="text"
+id="operatorName"
+placeholder="ابدأ بكتابة اسم المشغل">
+
+<label>رقم ID</label>
+
+<input
+type="text"
+id="operatorID"
+readonly>
+
+<label>رقم السيارة</label>
+
+<input
+type="text"
+id="carNumber"
+placeholder="مثال: أ ب ج 1234">
+
+<label>رقم اللابتوب</label>
+
+<input
+type="text"
+id="laptopNumber"
+placeholder="أدخل رقم اللابتوب">
+
+<div class="buttonArea">
+
+<button
+id="startMission"
+onclick="startMission()">
+
+🚗 بدء المهمة
+
+</button>
+
+</div>
+
+</div>
+
+<script src="data/plans.js"></script>
+
+<script src="js/plan.js"></script>
+
+</body>
+
+</html>
