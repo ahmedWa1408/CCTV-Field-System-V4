@@ -1,5 +1,73 @@
 const adminContent=document.getElementById("adminContent");
 
+const systemLogs=document.getElementById("systemLogs");
+
+function logAction(action){
+
+const logs=JSON.parse(
+
+localStorage.getItem("systemLogs")||"[]"
+
+);
+
+logs.unshift({
+
+time:new Date().toLocaleString("ar-SA"),
+
+action:action
+
+});
+
+localStorage.setItem(
+
+"systemLogs",
+
+JSON.stringify(logs)
+
+);
+
+loadLogs();
+
+}
+
+function loadLogs(){
+
+const logs=JSON.parse(
+
+localStorage.getItem("systemLogs")||"[]"
+
+);
+
+if(logs.length===0){
+
+systemLogs.innerHTML="لا توجد عمليات حتى الآن.";
+
+return;
+
+}
+
+systemLogs.innerHTML="";
+
+logs.forEach(log=>{
+
+systemLogs.innerHTML+=`
+
+<div class="logItem">
+
+<b>${log.time}</b>
+
+<br>
+
+${log.action}
+
+</div>
+
+`;
+
+});
+
+}
+
 function updateStatistics(){
 
 document.getElementById("employeesCount").textContent=
@@ -40,7 +108,9 @@ localStorage.getItem("missionHistory")||"[]"
 
 }
 
-updateStatistics();document.getElementById("employeesBtn").addEventListener("click",function(){
+updateStatistics();
+
+loadLogs();function showEmployees(){
 
 const employees=getEmployees();
 
@@ -55,7 +125,8 @@ type="text"
 id="employeeSearch"
 placeholder="ابحث بالاسم أو رقم ID">
 
-<button id="newEmployee">
+<button
+id="addEmployeeBtn">
 
 ➕ إضافة موظف
 
@@ -71,7 +142,7 @@ placeholder="ابحث بالاسم أو رقم ID">
 
 <th>الاسم</th>
 
-<th>ID</th>
+<th>رقم ID</th>
 
 <th>السيارة</th>
 
@@ -91,12 +162,6 @@ placeholder="ابحث بالاسم أو رقم ID">
 
 employees.forEach((emp,index)=>{
 
-const letters=(emp.carLetters||[]).join("");
-
-const numbers=emp.carNumbers||"";
-
-const laptop=emp.laptop||"";
-
 html+=`
 
 <tr>
@@ -105,14 +170,14 @@ html+=`
 
 <td>${emp.id}</td>
 
-<td>${letters} ${numbers}</td>
+<td>${(emp.carLetters||[]).join("")} ${emp.carNumbers||""}</td>
 
-<td>${laptop}</td>
+<td>${emp.laptop||""}</td>
 
 <td>
 
-<button class="editEmployee"
-
+<button
+class="editEmployee"
 data-index="${index}">
 
 ✏️
@@ -123,8 +188,8 @@ data-index="${index}">
 
 <td>
 
-<button class="deleteEmployee"
-
+<button
+class="deleteEmployee"
 data-id="${emp.id}">
 
 🗑
@@ -149,116 +214,19 @@ html+=`
 
 adminContent.innerHTML=html;
 
-});document.addEventListener("click",function(e){
-
-if(e.target.classList.contains("deleteEmployee")){
-
-const id=e.target.dataset.id;
-
-if(!confirm("هل تريد حذف هذا الموظف؟")){
-
-return;
-
 }
 
-deleteEmployee(id);
+document
 
-updateStatistics();
+.getElementById("employeesBtn")
 
-document.getElementById("employeesBtn").click();
+.addEventListener(
 
-}
+"click",
 
-if(e.target.classList.contains("editEmployee")){
+showEmployees
 
-const index=e.target.dataset.index;
-
-const employees=getEmployees();
-
-const emp=employees[index];
-
-adminContent.innerHTML=`
-
-<h2>تعديل بيانات الموظف</h2>
-
-<div class="formGrid">
-
-<label>اسم الموظف</label>
-
-<input
-type="text"
-id="editName"
-value="${emp.name}">
-
-<label>رقم ID</label>
-
-<input
-type="text"
-id="editID"
-value="${emp.id}">
-
-<label>حروف السيارة</label>
-
-<input
-type="text"
-id="editLetters"
-value="${(emp.carLetters||[]).join('')}">
-
-<label>أرقام السيارة</label>
-
-<input
-type="text"
-id="editNumbers"
-value="${emp.carNumbers||""}">
-
-<label>رقم اللابتوب</label>
-
-<input
-type="text"
-id="editLaptop"
-value="${emp.laptop||""}">
-
-<button id="saveEmployeeEdit">
-
-💾 حفظ التعديلات
-
-</button>
-
-`;
-
-document.getElementById("saveEmployeeEdit").addEventListener("click",function(){
-
-saveEmployee({
-
-name:document.getElementById("editName").value,
-
-id:document.getElementById("editID").value,
-
-carLetters:
-
-document.getElementById("editLetters").value.split(""),
-
-carNumbers:
-
-document.getElementById("editNumbers").value,
-
-laptop:
-
-document.getElementById("editLaptop").value
-
-});
-
-alert("تم حفظ التعديلات");
-
-updateStatistics();
-
-document.getElementById("employeesBtn").click();
-
-});
-
-}
-
-});document.addEventListener("input",function(e){
+);document.addEventListener("input",function(e){
 
 if(e.target.id!=="employeeSearch"){
 
@@ -280,7 +248,7 @@ row.style.display=text.includes(keyword)?"":"none";
 
 document.addEventListener("click",function(e){
 
-if(e.target.id!=="newEmployee"){
+if(e.target.id!=="addEmployeeBtn"){
 
 return;
 
@@ -294,25 +262,25 @@ adminContent.innerHTML=`
 
 <label>اسم الموظف</label>
 
-<input type="text" id="newName">
+<input type="text" id="empName">
 
 <label>رقم ID</label>
 
-<input type="text" id="newID">
+<input type="text" id="empID">
 
 <label>حروف السيارة</label>
 
-<input type="text" id="newLetters" maxlength="3">
+<input type="text" id="empLetters" maxlength="3">
 
 <label>أرقام السيارة</label>
 
-<input type="text" id="newNumbers" maxlength="4">
+<input type="text" id="empNumbers" maxlength="4">
 
 <label>رقم اللابتوب</label>
 
-<input type="text" id="newLaptop">
+<input type="text" id="empLaptop">
 
-<button id="saveNewEmployee">
+<button id="saveEmployee">
 
 💾 حفظ الموظف
 
@@ -326,7 +294,19 @@ adminContent.innerHTML=`
 
 document.addEventListener("click",function(e){
 
-if(e.target.id!=="saveNewEmployee"){
+if(e.target.id!=="saveEmployee"){
+
+return;
+
+}
+
+const employees=getEmployees();
+
+const id=document.getElementById("empID").value.trim();
+
+if(employees.some(emp=>emp.id===id)){
+
+alert("رقم ID موجود مسبقاً.");
 
 return;
 
@@ -334,25 +314,136 @@ return;
 
 saveEmployee({
 
-name:document.getElementById("newName").value,
+name:document.getElementById("empName").value,
 
-id:document.getElementById("newID").value,
+id:id,
 
-carLetters:document.getElementById("newLetters").value.split(""),
+carLetters:document.getElementById("empLetters").value.split(""),
 
-carNumbers:document.getElementById("newNumbers").value,
+carNumbers:document.getElementById("empNumbers").value,
 
-laptop:document.getElementById("newLaptop").value
+laptop:document.getElementById("empLaptop").value
 
 });
 
-alert("تمت إضافة الموظف بنجاح");
+logAction("تمت إضافة موظف جديد.");
 
 updateStatistics();
 
-document.getElementById("employeesBtn").click();
+showEmployees();
 
-});document.getElementById("vehiclesBtn").addEventListener("click",function(){
+});document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("deleteEmployee")){
+
+const id=e.target.dataset.id;
+
+if(!confirm("هل تريد حذف هذا الموظف؟")){
+
+return;
+
+}
+
+deleteEmployee(id);
+
+logAction("تم حذف الموظف رقم ID: "+id);
+
+updateStatistics();
+
+showEmployees();
+
+}
+
+if(e.target.classList.contains("editEmployee")){
+
+const index=parseInt(e.target.dataset.index);
+
+const employees=getEmployees();
+
+const emp=employees[index];
+
+adminContent.innerHTML=`
+
+<h2>تعديل بيانات الموظف</h2>
+
+<div class="formGrid">
+
+<label>اسم الموظف</label>
+
+<input
+type="text"
+id="editEmpName"
+value="${emp.name}">
+
+<label>رقم ID</label>
+
+<input
+type="text"
+id="editEmpID"
+value="${emp.id}"
+readonly>
+
+<label>حروف السيارة</label>
+
+<input
+type="text"
+id="editEmpLetters"
+maxlength="3"
+value="${(emp.carLetters||[]).join("")}">
+
+<label>أرقام السيارة</label>
+
+<input
+type="text"
+id="editEmpNumbers"
+maxlength="4"
+value="${emp.carNumbers||""}">
+
+<label>رقم اللابتوب</label>
+
+<input
+type="text"
+id="editEmpLaptop"
+value="${emp.laptop||""}">
+
+<button
+id="updateEmployee">
+
+💾 حفظ التعديلات
+
+</button>
+
+</div>
+
+`;
+
+document.getElementById("updateEmployee").addEventListener("click",function(){
+
+saveEmployee({
+
+name:document.getElementById("editEmpName").value,
+
+id:emp.id,
+
+carLetters:document.getElementById("editEmpLetters").value.split(""),
+
+carNumbers:document.getElementById("editEmpNumbers").value,
+
+laptop:document.getElementById("editEmpLaptop").value
+
+});
+
+logAction("تم تعديل بيانات الموظف: "+emp.name);
+
+updateStatistics();
+
+showEmployees();
+
+});
+
+}
+
+});function showVehicles(){
 
 const vehicles=getVehicles();
 
@@ -365,9 +456,10 @@ let html=`
 <input
 type="text"
 id="vehicleSearch"
-placeholder="ابحث برقم أو حروف السيارة">
+placeholder="ابحث بحروف أو رقم اللوحة">
 
-<button id="newVehicle">
+<button
+id="addVehicleBtn">
 
 ➕ إضافة سيارة
 
@@ -448,15 +540,112 @@ html+=`
 
 adminContent.innerHTML=html;
 
-});
+}
 
-document.addEventListener("click",function(e){
+document
 
-if(!e.target.classList.contains("deleteVehicle")){
+.getElementById("vehiclesBtn")
+
+.addEventListener(
+
+"click",
+
+showVehicles
+
+);document.addEventListener("input",function(e){
+
+if(e.target.id!=="vehicleSearch"){
 
 return;
 
 }
+
+const keyword=e.target.value.toLowerCase();
+
+document.querySelectorAll(".adminTable tbody tr").forEach(row=>{
+
+const text=row.textContent.toLowerCase();
+
+row.style.display=text.includes(keyword)?"":"none";
+
+});
+
+});
+
+document.addEventListener("click",function(e){
+
+if(e.target.id==="addVehicleBtn"){
+
+adminContent.innerHTML=`
+
+<h2>إضافة سيارة جديدة</h2>
+
+<div class="formGrid">
+
+<label>حروف اللوحة</label>
+
+<input
+type="text"
+id="carLetters"
+maxlength="3">
+
+<label>رقم اللوحة</label>
+
+<input
+type="text"
+id="carNumbers"
+maxlength="4">
+
+<button
+id="saveVehicle">
+
+💾 حفظ السيارة
+
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+if(e.target.id==="saveVehicle"){
+
+const letters=document.getElementById("carLetters").value.trim();
+
+const numbers=document.getElementById("carNumbers").value.trim();
+
+const vehicles=getVehicles();
+
+if(vehicles.some(v=>v.letters===letters&&v.numbers===numbers)){
+
+alert("السيارة مسجلة مسبقاً.");
+
+return;
+
+}
+
+saveVehicle({
+
+letters:letters,
+
+numbers:numbers
+
+});
+
+logAction("تمت إضافة سيارة جديدة.");
+
+updateStatistics();
+
+showVehicles();
+
+return;
+
+}
+
+if(e.target.classList.contains("deleteVehicle")){
 
 if(!confirm("هل تريد حذف السيارة؟")){
 
@@ -472,11 +661,78 @@ e.target.dataset.numbers
 
 );
 
+logAction("تم حذف سيارة.");
+
 updateStatistics();
 
-document.getElementById("vehiclesBtn").click();
+showVehicles();
 
-});document.getElementById("supervisorsBtn").addEventListener("click",function(){
+}
+
+});document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("editVehicle")){
+
+const index=parseInt(e.target.dataset.index);
+
+const vehicles=getVehicles();
+
+const car=vehicles[index];
+
+adminContent.innerHTML=`
+
+<h2>تعديل بيانات السيارة</h2>
+
+<div class="formGrid">
+
+<label>حروف اللوحة</label>
+
+<input
+type="text"
+id="editCarLetters"
+maxlength="3"
+value="${car.letters}">
+
+<label>رقم اللوحة</label>
+
+<input
+type="text"
+id="editCarNumbers"
+maxlength="4"
+value="${car.numbers}">
+
+<button
+id="updateVehicle">
+
+💾 حفظ التعديلات
+
+</button>
+
+</div>
+
+`;
+
+document.getElementById("updateVehicle").addEventListener("click",function(){
+
+saveVehicle({
+
+letters:document.getElementById("editCarLetters").value.trim(),
+
+numbers:document.getElementById("editCarNumbers").value.trim()
+
+});
+
+logAction("تم تعديل بيانات السيارة.");
+
+updateStatistics();
+
+showVehicles();
+
+});
+
+}
+
+});function showSupervisors(){
 
 const supervisors=getSupervisors();
 
@@ -491,7 +747,8 @@ type="text"
 id="supervisorSearch"
 placeholder="ابحث بالاسم أو رقم ID">
 
-<button id="newSupervisor">
+<button
+id="addSupervisorBtn">
 
 ➕ إضافة مشرف
 
@@ -505,7 +762,7 @@ placeholder="ابحث بالاسم أو رقم ID">
 
 <tr>
 
-<th>الاسم</th>
+<th>اسم المشرف</th>
 
 <th>رقم ID</th>
 
@@ -571,35 +828,41 @@ html+=`
 
 adminContent.innerHTML=html;
 
+}
+
+document
+
+.getElementById("supervisorsBtn")
+
+.addEventListener(
+
+"click",
+
+showSupervisors
+
+);document.addEventListener("input",function(e){
+
+if(e.target.id!=="supervisorSearch"){
+
+return;
+
+}
+
+const keyword=e.target.value.toLowerCase();
+
+document.querySelectorAll(".adminTable tbody tr").forEach(row=>{
+
+const text=row.textContent.toLowerCase();
+
+row.style.display=text.includes(keyword)?"":"none";
+
+});
+
 });
 
 document.addEventListener("click",function(e){
 
-if(!e.target.classList.contains("deleteSupervisor")){
-
-return;
-
-}
-
-if(!confirm("هل تريد حذف هذا المشرف؟")){
-
-return;
-
-}
-
-deleteSupervisor(
-
-e.target.dataset.id
-
-);
-
-updateStatistics();
-
-document.getElementById("supervisorsBtn").click();
-
-});document.addEventListener("click",function(e){
-
-if(e.target.id==="newSupervisor"){
+if(e.target.id==="addSupervisorBtn"){
 
 adminContent.innerHTML=`
 
@@ -609,15 +872,20 @@ adminContent.innerHTML=`
 
 <label>اسم المشرف</label>
 
-<input type="text" id="supName">
+<input
+type="text"
+id="supName">
 
 <label>رقم ID</label>
 
-<input type="text" id="supID">
+<input
+type="text"
+id="supID">
 
-<button id="saveSupervisor">
+<button
+id="saveSupervisor">
 
-💾 حفظ
+💾 حفظ المشرف
 
 </button>
 
@@ -625,29 +893,65 @@ adminContent.innerHTML=`
 
 `;
 
+return;
+
 }
 
 if(e.target.id==="saveSupervisor"){
+
+const supervisors=getSupervisors();
+
+const id=document.getElementById("supID").value.trim();
+
+if(supervisors.some(s=>s.id===id)){
+
+alert("رقم ID موجود مسبقاً.");
+
+return;
+
+}
 
 saveSupervisor({
 
 name:document.getElementById("supName").value,
 
-id:document.getElementById("supID").value
+id:id
 
 });
 
-alert("تمت إضافة المشرف");
+logAction("تمت إضافة مشرف جديد.");
 
 updateStatistics();
 
-document.getElementById("supervisorsBtn").click();
+showSupervisors();
+
+return;
 
 }
 
+if(e.target.classList.contains("deleteSupervisor")){
+
+if(!confirm("هل تريد حذف هذا المشرف؟")){
+
+return;
+
+}
+
+deleteSupervisor(e.target.dataset.id);
+
+logAction("تم حذف مشرف.");
+
+updateStatistics();
+
+showSupervisors();
+
+}
+
+});document.addEventListener("click",function(e){
+
 if(e.target.classList.contains("editSupervisor")){
 
-const index=e.target.dataset.index;
+const index=parseInt(e.target.dataset.index);
 
 const supervisors=getSupervisors();
 
@@ -661,13 +965,21 @@ adminContent.innerHTML=`
 
 <label>اسم المشرف</label>
 
-<input type="text" id="editSupName" value="${sup.name}">
+<input
+type="text"
+id="editSupName"
+value="${sup.name}">
 
 <label>رقم ID</label>
 
-<input type="text" id="editSupID" value="${sup.id}">
+<input
+type="text"
+id="editSupID"
+value="${sup.id}"
+readonly>
 
-<button id="updateSupervisor">
+<button
+id="updateSupervisor">
 
 💾 حفظ التعديلات
 
@@ -683,25 +995,35 @@ saveSupervisor({
 
 name:document.getElementById("editSupName").value,
 
-id:document.getElementById("editSupID").value
+id:sup.id
 
 });
 
-alert("تم حفظ التعديلات");
+logAction("تم تعديل بيانات المشرف: "+sup.name);
 
 updateStatistics();
 
-document.getElementById("supervisorsBtn").click();
+showSupervisors();
 
 });
 
 }
 
-});document.getElementById("plansBtn").addEventListener("click",function(){
+});function showPlans(){
 
 let html=`
 
 <h2>إدارة الخطط</h2>
+
+<div class="toolbar">
+
+<button id="addPlanBtn">
+
+➕ إضافة خطة
+
+</button>
+
+</div>
 
 <table class="adminTable">
 
@@ -715,9 +1037,9 @@ let html=`
 
 <th>عدد المواقع</th>
 
-<th>تعديل</th>
-
 <th>إدارة المواقع</th>
+
+<th>تعديل</th>
 
 </tr>
 
@@ -742,10 +1064,10 @@ html+=`
 <td>
 
 <button
-class="editPlan"
+class="manageSites"
 data-plan="${plan.number}">
 
-✏️
+📍 المواقع
 
 </button>
 
@@ -754,10 +1076,10 @@ data-plan="${plan.number}">
 <td>
 
 <button
-class="manageSites"
+class="editPlan"
 data-plan="${plan.number}">
 
-📍
+✏️
 
 </button>
 
@@ -779,15 +1101,21 @@ html+=`
 
 adminContent.innerHTML=html;
 
-});
-
-document.addEventListener("click",function(e){
-
-if(!e.target.classList.contains("editPlan")){
-
-return;
-
 }
+
+document
+
+.getElementById("plansBtn")
+
+.addEventListener(
+
+"click",
+
+showPlans
+
+);document.addEventListener("click",function(e){
+
+if(e.target.classList.contains("editPlan")){
 
 const planNumber=e.target.dataset.plan;
 
@@ -810,20 +1138,109 @@ readonly>
 
 <input
 type="text"
-id="editPlanName"
+id="planName"
 value="${plan.name}">
 
 <button
 id="savePlan"
 data-plan="${plan.number}">
 
-💾 حفظ
+💾 حفظ التعديلات
 
 </button>
 
 </div>
 
 `;
+
+return;
+
+}
+
+if(e.target.id==="savePlan"){
+
+const planNumber=e.target.dataset.plan;
+
+plans[planNumber].name=
+
+document.getElementById("planName").value;
+
+logAction("تم تعديل اسم الخطة رقم "+planNumber);
+
+showPlans();
+
+updateStatistics();
+
+return;
+
+}
+
+if(e.target.id==="addPlanBtn"){
+
+adminContent.innerHTML=`
+
+<h2>إضافة خطة جديدة</h2>
+
+<div class="formGrid">
+
+<label>رقم الخطة</label>
+
+<input
+type="number"
+id="newPlanNumber">
+
+<label>اسم المسار</label>
+
+<input
+type="text"
+id="newPlanName">
+
+<button
+id="createPlan">
+
+💾 إنشاء الخطة
+
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+if(e.target.id==="createPlan"){
+
+const number=
+
+document.getElementById("newPlanNumber").value;
+
+const name=
+
+document.getElementById("newPlanName").value;
+
+plans[number]={
+
+number:Number(number),
+
+name:name,
+
+flash:0,
+
+hard:0,
+
+sites:[]
+
+};
+
+logAction("تم إنشاء خطة جديدة رقم "+number);
+
+updateStatistics();
+
+showPlans();
+
+}
 
 });document.addEventListener("click",function(e){
 
@@ -845,13 +1262,17 @@ let html=`
 
 </h2>
 
+<div class="toolbar">
+
 <button
-id="newSite"
+id="addSiteBtn"
 data-plan="${plan.number}">
 
 ➕ إضافة موقع
 
 </button>
+
+</div>
 
 <table class="adminTable">
 
@@ -859,13 +1280,15 @@ data-plan="${plan.number}">
 
 <tr>
 
+<th>#</th>
+
 <th>رمز الموقع</th>
 
 <th>وحدة التخزين</th>
 
 <th>XML</th>
 
-<th>خرائط Google</th>
+<th>خرائط</th>
 
 <th>تعديل</th>
 
@@ -885,6 +1308,8 @@ html+=`
 
 <tr>
 
+<td>${index+1}</td>
+
 <td>${site.code}</td>
 
 <td>${site.storage}</td>
@@ -894,9 +1319,7 @@ html+=`
 <td>
 
 <button
-
-class="openSiteMap"
-
+class="openMap"
 data-map="${site.map}">
 
 📍
@@ -908,11 +1331,8 @@ data-map="${site.map}">
 <td>
 
 <button
-
 class="editSite"
-
 data-plan="${plan.number}"
-
 data-index="${index}">
 
 ✏️
@@ -924,11 +1344,8 @@ data-index="${index}">
 <td>
 
 <button
-
 class="deleteSite"
-
 data-plan="${plan.number}"
-
 data-index="${index}">
 
 🗑
@@ -955,7 +1372,7 @@ adminContent.innerHTML=html;
 
 });document.addEventListener("click",function(e){
 
-if(e.target.id==="newSite"){
+if(e.target.id==="addSiteBtn"){
 
 const planNumber=e.target.dataset.plan;
 
@@ -966,26 +1383,45 @@ adminContent.innerHTML=`
 <div class="formGrid">
 
 <label>رمز الموقع</label>
-<input type="text" id="siteCode">
+
+<input
+type="text"
+id="siteCode">
 
 <label>رابط Google Maps</label>
-<input type="text" id="siteMap">
 
-<label>خط العرض (Latitude)</label>
-<input type="number" step="any" id="siteLat">
+<input
+type="text"
+id="siteMap">
 
-<label>خط الطول (Longitude)</label>
-<input type="number" step="any" id="siteLng">
+<label>خط العرض Latitude</label>
+
+<input
+type="number"
+step="any"
+id="siteLat">
+
+<label>خط الطول Longitude</label>
+
+<input
+type="number"
+step="any"
+id="siteLng">
 
 <label>وحدة التخزين</label>
 
 <select id="siteStorage">
 
 <option>فلاش</option>
+
 <option>2 فلاش</option>
+
 <option>3 فلاشات</option>
+
 <option>هارديسك</option>
+
 <option>يسحب يدوي</option>
+
 <option>أونلاين</option>
 
 </select>
@@ -995,12 +1431,13 @@ adminContent.innerHTML=`
 <select id="siteXML">
 
 <option value="true">يوجد</option>
+
 <option value="false">لا يوجد</option>
 
 </select>
 
-<button id="saveSite"
-
+<button
+id="saveSite"
 data-plan="${planNumber}">
 
 💾 حفظ الموقع
@@ -1037,17 +1474,15 @@ status:"working"
 
 });
 
-alert("تمت إضافة الموقع بنجاح");
+logAction("تمت إضافة موقع جديد للخطة "+planNumber);
 
 updateStatistics();
 
-document.querySelector(
-
-'.manageSites[data-plan="'+planNumber+'"]'
-
-)?.click();
+showPlans();
 
 }
+
+});document.addEventListener("click",function(e){
 
 if(e.target.classList.contains("deleteSite")){
 
@@ -1063,19 +1498,142 @@ return;
 
 plans[planNumber].sites.splice(index,1);
 
-alert("تم حذف الموقع");
+logAction("تم حذف موقع من الخطة "+planNumber);
 
 updateStatistics();
 
-document.querySelector(
+showPlans();
 
-'.manageSites[data-plan="'+planNumber+'"]'
-
-)?.click();
+return;
 
 }
 
-if(e.target.classList.contains("openSiteMap")){
+if(e.target.classList.contains("editSite")){
+
+const planNumber=e.target.dataset.plan;
+
+const index=parseInt(e.target.dataset.index);
+
+const site=plans[planNumber].sites[index];
+
+adminContent.innerHTML=`
+
+<h2>تعديل بيانات الموقع</h2>
+
+<div class="formGrid">
+
+<label>رمز الموقع</label>
+
+<input
+type="text"
+id="editSiteCode"
+value="${site.code}">
+
+<label>رابط Google Maps</label>
+
+<input
+type="text"
+id="editSiteMap"
+value="${site.map}">
+
+<label>Latitude</label>
+
+<input
+type="number"
+step="any"
+id="editSiteLat"
+value="${site.lat||""}">
+
+<label>Longitude</label>
+
+<input
+type="number"
+step="any"
+id="editSiteLng"
+value="${site.lng||""}">
+
+<label>وحدة التخزين</label>
+
+<select id="editSiteStorage">
+
+<option ${site.storage==="فلاش"?"selected":""}>فلاش</option>
+
+<option ${site.storage==="2 فلاش"?"selected":""}>2 فلاش</option>
+
+<option ${site.storage==="3 فلاشات"?"selected":""}>3 فلاشات</option>
+
+<option ${site.storage==="هارديسك"?"selected":""}>هارديسك</option>
+
+<option ${site.storage==="يسحب يدوي"?"selected":""}>يسحب يدوي</option>
+
+<option ${site.storage==="أونلاين"?"selected":""}>أونلاين</option>
+
+</select>
+
+<label>XML</label>
+
+<select id="editSiteXML">
+
+<option value="true" ${site.xml?"selected":""}>يوجد</option>
+
+<option value="false" ${!site.xml?"selected":""}>لا يوجد</option>
+
+</select>
+
+<button
+id="updateSite"
+data-plan="${planNumber}"
+data-index="${index}">
+
+💾 حفظ التعديلات
+
+</button>
+
+</div>
+
+`;
+
+}
+
+});document.addEventListener("click",function(e){
+
+if(e.target.id!=="updateSite"){
+
+return;
+
+}
+
+const planNumber=e.target.dataset.plan;
+
+const index=parseInt(e.target.dataset.index);
+
+plans[planNumber].sites[index]={
+
+code:document.getElementById("editSiteCode").value,
+
+storage:document.getElementById("editSiteStorage").value,
+
+xml:document.getElementById("editSiteXML").value==="true",
+
+map:document.getElementById("editSiteMap").value,
+
+lat:parseFloat(document.getElementById("editSiteLat").value),
+
+lng:parseFloat(document.getElementById("editSiteLng").value),
+
+status:"working"
+
+};
+
+logAction("تم تعديل الموقع "+plans[planNumber].sites[index].code);
+
+updateStatistics();
+
+showPlans();
+
+}
+
+if(e.target.classList.contains("openMap")){
 
 const map=e.target.dataset.map;
 
@@ -1085,10 +1643,168 @@ window.open(map,"_blank");
 
 }else{
 
-alert("لا يوجد رابط للموقع.");
+alert("لا يوجد رابط Google Maps لهذا الموقع.");
 
 }
 
 }
+
+});document.getElementById("backupBtn").addEventListener("click",function(){
+
+const backup={
+
+employees:getEmployees(),
+
+supervisors:getSupervisors(),
+
+vehicles:getVehicles(),
+
+laptops:getLaptops(),
+
+plans:plans,
+
+history:JSON.parse(
+
+localStorage.getItem("missionHistory")||"[]"
+
+),
+
+logs:JSON.parse(
+
+localStorage.getItem("systemLogs")||"[]"
+
+),
+
+date:new Date().toLocaleString("ar-SA")
+
+};
+
+const data=JSON.stringify(backup,null,2);
+
+const blob=new Blob([data],{
+
+type:"application/json"
+
+});
+
+const url=URL.createObjectURL(blob);
+
+const a=document.createElement("a");
+
+a.href=url;
+
+a.download="CCTV_Backup.json";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+logAction("تم إنشاء نسخة احتياطية للنظام.");
+
+});document.getElementById("restoreBtn").addEventListener("click",function(){
+
+const input=document.createElement("input");
+
+input.type="file";
+
+input.accept=".json";
+
+input.onchange=function(){
+
+const file=input.files[0];
+
+if(!file){
+
+return;
+
+}
+
+const reader=new FileReader();
+
+reader.onload=function(){
+
+try{
+
+const backup=JSON.parse(reader.result);
+
+localStorage.setItem(
+
+"employees",
+
+JSON.stringify(backup.employees||[])
+
+);
+
+localStorage.setItem(
+
+"supervisors",
+
+JSON.stringify(backup.supervisors||[])
+
+);
+
+localStorage.setItem(
+
+"vehicles",
+
+JSON.stringify(backup.vehicles||[])
+
+);
+
+localStorage.setItem(
+
+"laptops",
+
+JSON.stringify(backup.laptops||[])
+
+);
+
+localStorage.setItem(
+
+"missionHistory",
+
+JSON.stringify(backup.history||[])
+
+);
+
+localStorage.setItem(
+
+"systemLogs",
+
+JSON.stringify(backup.logs||[])
+
+);
+
+if(backup.plans){
+
+Object.keys(backup.plans).forEach(key=>{
+
+plans[key]=backup.plans[key];
+
+});
+
+}
+
+logAction("تمت استعادة نسخة احتياطية.");
+
+updateStatistics();
+
+alert("تمت استعادة النسخة الاحتياطية بنجاح.");
+
+location.reload();
+
+}catch(error){
+
+alert("ملف النسخة الاحتياطية غير صالح.");
+
+}
+
+};
+
+reader.readAsText(file);
+
+};
+
+input.click();
 
 });
