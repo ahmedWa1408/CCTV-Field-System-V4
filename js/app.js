@@ -1,47 +1,93 @@
-function updateClock(){
+const planInput=document.getElementById("planNumber");
 
-const now=new Date();
+const planCard=document.getElementById("planInfo");
 
-const time=now.toLocaleTimeString("ar-SA");
+const routeNumber=document.getElementById("routeNumber");
 
-const date=now.toLocaleDateString("ar-SA",{
+const routeName=document.getElementById("routeName");
 
-weekday:"long",
+const sitesCount=document.getElementById("sitesCount");
 
-year:"numeric",
+const storageCount=document.getElementById("storageCount");
 
-month:"long",
+const lastMission=document.getElementById("lastMission");
 
-day:"numeric"
+function searchPlan(){
 
-});
+const number=planInput.value.trim();
 
-document.getElementById("liveClock").textContent=time;
+if(number===""){
 
-document.getElementById("todayDate").textContent=date;
+alert("أدخل رقم الخطة");
 
-document.getElementById("lastUpdate").textContent=date;
+return;
 
 }
 
-setInterval(updateClock,1000);
+if(!plans[number]){
 
-updateClock();const stats={
+alert("رقم الخطة غير موجود");
 
-plans:6,
+planCard.style.display="none";
 
-sites:0,
+return;
 
-missions:0,
+}
 
-success:100
+routeNumber.textContent="الخطة رقم "+number;
 
-};
+routeName.textContent=plans[number].name;
 
-document.getElementById("plansCount").textContent=stats.plans;
+sitesCount.textContent=plans[number].sites.length;
 
-document.getElementById("sitesCount").textContent=stats.sites;
+storageCount.textContent=(plans[number].flash||0)+(plans[number].hard||0);
 
-document.getElementById("missionsCount").textContent=stats.missions;
+lastMission.textContent=localStorage.getItem("lastMission_"+number)||"لا يوجد";
 
-document.getElementById("successRate").textContent=stats.success+"%";
+planCard.style.display="block";
+
+}function startMission(){
+
+const number=planInput.value.trim();
+
+if(!plans[number]){
+
+alert("اختر رقم خطة صحيح");
+
+return;
+
+}
+
+localStorage.setItem("selectedPlan",number);
+
+window.location.href="mission.html";
+
+}
+
+function openHistory(){
+
+const number=planInput.value.trim();
+
+if(!plans[number]){
+
+alert("اختر رقم خطة أولاً");
+
+return;
+
+}
+
+localStorage.setItem("selectedPlan",number);
+
+window.location.href="history.html";
+
+}
+
+function resetSearch(){
+
+planInput.value="";
+
+planCard.style.display="none";
+
+planInput.focus();
+
+}
