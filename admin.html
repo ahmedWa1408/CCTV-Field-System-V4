@@ -40,7 +40,115 @@
 
 </div>
 
-</header>
+</header><section class="dashboardCard">
+
+<h2>
+
+📊 لوحة المتابعة المباشرة
+
+</h2>
+
+<div class="dashboardGrid">
+
+<div class="dashboardBox">
+
+<h3 id="onlineOperators">
+
+0
+
+</h3>
+
+<span>
+
+المشغلون المتصلون
+
+</span>
+
+</div>
+
+<div class="dashboardBox">
+
+<h3 id="activeMissions">
+
+0
+
+</h3>
+
+<span>
+
+المهام الجارية
+
+</span>
+
+</div>
+
+<div class="dashboardBox">
+
+<h3 id="finishedToday">
+
+0
+
+</h3>
+
+<span>
+
+المهام المنتهية اليوم
+
+</span>
+
+</div>
+
+<div class="dashboardBox">
+
+<h3 id="offlineOperators">
+
+0
+
+</h3>
+
+<span>
+
+المشغلون غير المتصلين
+
+</span>
+
+</div>
+
+<div class="dashboardBox">
+
+<h3 id="alertsCount">
+
+0
+
+</h3>
+
+<span>
+
+التنبيهات
+
+</span>
+
+</div>
+
+<div class="dashboardBox">
+
+<h3 id="systemStatus">
+
+مستقر
+
+</h3>
+
+<span>
+
+حالة النظام
+
+</span>
+
+</div>
+
+</div>
+
+</section>
 
 <section class="menuCard">
 
@@ -102,25 +210,13 @@
 
 </div>
 
-</section>
+</section><section class="statsCard">
 
-<section class="contentCard">
+<h2>
 
-<div id="adminContent">
+📈 إحصائيات النظام
 
-اختر القسم المطلوب من الأعلى.
-
-</div>
-
-</section>
-
-<script src="data/config.js"></script>
-
-<script src="js/admin.js"></script>
-
-</body>
-
-</html><section class="statsCard">
+</h2>
 
 <div class="statsGrid">
 
@@ -214,7 +310,7 @@
 
 <span>
 
-المهام المنفذة
+المهام المنجزة
 
 </span>
 
@@ -232,15 +328,21 @@
 
 </button>
 
+<button id="addSupervisor">
+
+👮 إضافة مشرف
+
+</button>
+
 <button id="addVehicle">
 
 🚗 إضافة سيارة
 
 </button>
 
-<button id="addSupervisor">
+<button id="addLaptop">
 
-👮 إضافة مشرف
+💻 إضافة لابتوب
 
 </button>
 
@@ -262,16 +364,56 @@
 
 </button>
 
+</section><section class="contentCard">
+
+<div id="adminContent">
+
+<h2>
+
+مرحبًا بك في لوحة الإدارة
+
+</h2>
+
+<p>
+
+اختر أحد الأقسام من الأعلى لإدارة النظام.
+
+</p>
+
+</div>
+
+</section>
+
+<section class="logsCard">
+
+<h2>
+
+📑 سجل العمليات
+
+</h2>
+
+<div id="systemLogs">
+
+لا توجد عمليات حتى الآن.
+
+</div>
+
 </section>
 
 </div>
 
-<script src="data/employees.js"></script>
-<script src="data/supervisors.js"></script>
-<script src="data/vehicles.js"></script>
-<script src="data/laptops.js"></script>
-<script src="data/plans.js"></script>
 <script src="data/config.js"></script>
+
+<script src="data/plans.js"></script>
+
+<script src="data/employees.js"></script>
+
+<script src="data/vehicles.js"></script>
+
+<script src="data/laptops.js"></script>
+
+<script src="data/supervisors.js"></script>
+
 <script src="js/admin.js"></script>
 
 </body>
