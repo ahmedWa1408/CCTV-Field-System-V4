@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -7,13 +8,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>الحركة الميدانية لقسم التشغيل CCTV</title>
+<title>إدارة أنظمة المراقبة الأمنية - قسم التشغيل CCTV</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -21,122 +22,173 @@
 
 <body>
 
-<div class="container">
-
-<header class="headerCard">
+<div id="welcomeScreen" class="welcomeScreen">
 
 <img src="assets/logo.png" class="logo" alt="تحكم">
 
-<h1>إدارة أنظمة المراقبة الأمنية</h1>
+<h1>
 
-<h2>قسم التشغيل CCTV</h2>
+إدارة أنظمة المراقبة الأمنية
+
+</h1>
+
+<h2>
+
+قسم التشغيل CCTV
+
+</h2>
+
+<p>
+
+نظام إدارة الحركة الميدانية
+
+</p>
+
+</div>
+
+<div id="homePage" class="homePage"><header class="mainHeader">
+
+<div class="headerRight">
+
+<img src="assets/logo.png" class="headerLogo" alt="تحكم">
+
+<div>
+
+<h1>
+
+إدارة أنظمة المراقبة الأمنية
+
+</h1>
+
+<h2>
+
+قسم التشغيل CCTV
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="headerLeft">
+
+<div id="todayName"></div>
+
+<div id="todayDate"></div>
+
+<div id="liveTime"></div>
+
+</div>
 
 </header>
 
 <section class="searchCard">
 
-<label>رقم الخطة</label>
+<h3>
 
-<input
-type="number"
-id="planNumber"
-placeholder="أدخل رقم الخطة"
-inputmode="numeric">
-
-<button
-id="searchBtn"
-onclick="searchPlan()">
-
-🔍 بحث عن الخطة
-
-</button>
-
-</section>
-
-<section
-id="planInfo"
-class="planCard"
-style="display:none;"><div class="routeHeader">
-
-<h3 id="routeNumber">
-
-الخطة رقم 1
+البحث عن الخطة
 
 </h3>
 
-<h4 id="routeName">
+<div class="searchGrid">
 
-عنيزة والمذنب
+<div>
 
-</h4>
+<label>
 
-</div>
+رقم الخطة
 
-<div class="routeStats">
+</label>
 
-<div class="miniCard">
+<input
 
-<span>📍</span>
+type="number"
 
-<h5>عدد المواقع</h5>
+id="planNumber"
 
-<b id="sitesCount">31</b>
-
-</div>
-
-<div class="miniCard">
-
-<span>💾</span>
-
-<h5>وحدات التخزين</h5>
-
-<b id="storageCount">24</b>
+placeholder="أدخل رقم الخطة">
 
 </div>
 
-<div class="miniCard">
+<div>
 
-<span>📅</span>
+<label>
 
-<h5>آخر تنفيذ</h5>
+اسم المسار
 
-<b id="lastMission">--</b>
+</label>
+
+<input
+
+type="text"
+
+id="routeName"
+
+readonly
+
+placeholder="سيظهر اسم المسار تلقائياً">
 
 </div>
 
-</div>
+<button id="searchPlan">
 
-<div class="buttons">
-
-<button
-class="startBtn"
-onclick="startMission()">
-
-🚗 بدء المهمة
-
-</button>
-
-<button
-class="historyBtn"
-onclick="openHistory()">
-
-📚 السجلات السابقة للمسار
-
-</button>
-
-<button
-class="backBtn"
-onclick="resetSearch()">
-
-↩ الرجوع لرقم الخطة
+🔍 بحث
 
 </button>
 
 </div>
+
+</section><section class="actionsCard">
+
+<button id="startMission">
+
+🚀 بدء المهمة
+
+</button>
+
+<button id="historyPage">
+
+📚 السجلات السابقة
+
+</button>
+
+<button id="reportsPage">
+
+📊 التقارير
+
+</button>
+
+<button id="adminPage">
+
+⚙️ لوحة الإدارة
+
+</button>
 
 </section>
 
+<footer class="footerCard">
+
+<p>
+
+© جميع الحقوق محفوظة - إدارة أنظمة المراقبة الأمنية - قسم التشغيل CCTV
+
+</p>
+
+</footer>
+
+</div>
+
+<script src="data/config.js"></script>
+
 <script src="data/plans.js"></script>
+
+<script src="data/employees.js"></script>
+
+<script src="data/vehicles.js"></script>
+
+<script src="data/laptops.js"></script>
+
+<script src="data/supervisors.js"></script>
 
 <script src="js/app.js"></script>
 
