@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>إدارة أنظمة المراقبة الأمنية | CCTV</title>
+<title>الحركة الميدانية لقسم التشغيل CCTV</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -23,215 +23,120 @@
 
 <div class="container">
 
-<header class="topHeader">
+<header class="headerCard">
 
-<div class="logoArea">
-
-<img src="assets/logo.png" alt="Tahakom Logo" class="logo">
-
-<div class="titleBox">
+<img src="assets/logo.png" class="logo" alt="تحكم">
 
 <h1>إدارة أنظمة المراقبة الأمنية</h1>
 
 <h2>قسم التشغيل CCTV</h2>
 
-</div>
-
-</div>
-
-<div class="statusBox">
-
-<div class="online">
-
-<span class="dot"></span>
-
-متصل
-
-</div>
-
-</div>
-
 </header>
 
-<section class="infoCards">
+<section class="searchCard">
 
-<div class="infoCard">
+<label>رقم الخطة</label>
 
-<div class="cardIcon">📅</div>
+<input
+type="number"
+id="planNumber"
+placeholder="أدخل رقم الخطة"
+inputmode="numeric">
 
-<div>
+<button
+id="searchBtn"
+onclick="searchPlan()">
 
-<p>التاريخ</p>
+🔍 بحث عن الخطة
 
-<h3 id="todayDate">--</h3>
+</button>
 
-</div>
+</section>
 
-</div>
+<section
+id="planInfo"
+class="planCard"
+style="display:none;"><div class="routeHeader">
 
-<div class="infoCard">
+<h3 id="routeNumber">
 
-<div class="cardIcon">🕒</div>
-
-<div>
-
-<p>الوقت</p>
-
-<h3 id="liveClock">00:00:00</h3>
-
-</div>
-
-</div>
-
-<div class="infoCard">
-
-<div class="cardIcon">📍</div>
-
-<div>
-
-<p>الموقع الحالي</p>
-
-<h3 id="currentLocation">
-
-المركز الرئيسي
+الخطة رقم 1
 
 </h3>
 
-</div>
+<h4 id="routeName">
+
+عنيزة والمذنب
+
+</h4>
 
 </div>
 
-</section>
+<div class="routeStats">
 
-<section class="statistics"><div class="statsGrid">
-
-<div class="statCard">
-
-<span>🗺️</span>
-
-<h2 id="plansCount">6</h2>
-
-<p>عدد الخطط</p>
-
-</div>
-
-<div class="statCard">
+<div class="miniCard">
 
 <span>📍</span>
 
-<h2 id="sitesCount">0</h2>
+<h5>عدد المواقع</h5>
 
-<p>عدد المواقع</p>
-
-</div>
-
-<div class="statCard">
-
-<span>✅</span>
-
-<h2 id="missionsCount">0</h2>
-
-<p>المهام المنجزة</p>
+<b id="sitesCount">31</b>
 
 </div>
 
-<div class="statCard">
+<div class="miniCard">
 
-<span>📊</span>
+<span>💾</span>
 
-<h2 id="successRate">100%</h2>
+<h5>وحدات التخزين</h5>
 
-<p>نسبة الإنجاز</p>
+<b id="storageCount">24</b>
+
+</div>
+
+<div class="miniCard">
+
+<span>📅</span>
+
+<h5>آخر تنفيذ</h5>
+
+<b id="lastMission">--</b>
 
 </div>
 
 </div>
 
-</section>
+<div class="buttons">
 
-<section class="mainButtons">
+<button
+class="startBtn"
+onclick="startMission()">
 
-<a href="plan.html" class="mainButton blue">
+🚗 بدء المهمة
 
-<div class="icon">🚗</div>
+</button>
 
-<span>بدء مهمة</span>
+<button
+class="historyBtn"
+onclick="openHistory()">
 
-</a>
+📚 السجلات السابقة للمسار
 
-<a href="history.html" class="mainButton green">
+</button>
 
-<div class="icon">📚</div>
+<button
+class="backBtn"
+onclick="resetSearch()">
 
-<span>سجل المهام</span>
+↩ الرجوع لرقم الخطة
 
-</a>
-
-<a href="reports.html" class="mainButton purple">
-
-<div class="icon">📊</div>
-
-<span>التقارير</span>
-
-</a>
-
-<a href="admin.html" class="mainButton orange">
-
-<div class="icon">⚙️</div>
-
-<span>لوحة الإدارة</span>
-
-</a>
-
-</section>
-
-<section class="quickInfo"><div class="quickCard">
-
-<h3>إصدار النظام</h3>
-
-<p>V4.0</p>
-
-</div>
-
-<div class="quickCard">
-
-<h3>آخر تحديث</h3>
-
-<p id="lastUpdate">--</p>
-
-</div>
-
-<div class="quickCard">
-
-<h3>حالة النظام</h3>
-
-<p class="activeStatus">
-
-🟢 يعمل بكفاءة
-
-</p>
+</button>
 
 </div>
 
 </section>
 
-<footer>
-
-<p>
-
-© إدارة أنظمة المراقبة الأمنية
-
-</p>
-
-<p>
-
-قسم التشغيل CCTV
-
-</p>
-
-</footer>
-
-</div>
+<script src="data/plans.js"></script>
 
 <script src="js/app.js"></script>
 
